@@ -1,0 +1,61 @@
+package hadis.searchengine.v2.search_server.repository;
+
+import org.springframework.data.elasticsearch.client.elc.NativeQuery;
+
+import static hadis.searchengine.v2.Constants.INDEX_NAME;
+
+public class SearchQuery {
+    private static final String INPUT_PLACEHOLDER = "$$$";
+
+    public static final String QUERY_ON_SINGLE_FIELD_WITH_MUST = """
+                {
+                  "bool": {
+                      "must": {"match": {"textOriginal": "$$$"}}
+                    }
+                }
+            """;
+    public static final String QUERY_ON_SINGLE_FIELD_WITH_SHOULD = """
+                {
+                  "bool": {
+                      "should": {"match": {"textOriginal": "$$$"}}
+                    }
+                }
+            """;
+
+    public static final String QUERY_ON_SINGLE_FIELD_WITH_FUZZY_1 = """
+                {
+                  "match": {
+                       "textOriginal": {
+                         "query": "$$$",
+                         "fuzziness": 1
+                       }
+                  }
+                }
+            """;
+
+    public static final String QUERY_ON_SINGLE_FIELD_WITH_FUZZY_1_UPDATED = """
+                {
+                 "match": {
+                   "textOriginal": {
+                     "query": "$$$",
+                     "fuzziness": 1
+                   }
+                 }
+               }
+            """;
+
+    public static final String QUERY_ON_SINGLE_FIELD_WITH_FUZZY_2 = """
+                {
+                 "match": {
+                   "textOriginal": {
+                     "query": "$$$",
+                     "fuzziness": 2
+                   }
+                 }
+                }
+            """;
+
+    public static String getElasticQuery(String queryTemplate, String inputText) {
+        return queryTemplate.replace(INPUT_PLACEHOLDER, inputText);
+    }
+}
