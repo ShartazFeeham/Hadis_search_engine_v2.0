@@ -11,8 +11,10 @@ import org.springframework.data.elasticsearch.core.query.StringQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
+import java.util.List;
 
 import static hadis.searchengine.v2.search_server.repository.ElasticQuery.SearchQuery.*;
+import static hadis.searchengine.v2.utils.Constants.*;
 
 @Service
 public class SearchService {
@@ -24,14 +26,14 @@ public class SearchService {
         this.elasticsearchOperations = elasticsearchOperations;
     }
 
-    public Iterator<SearchHit<Note>> search(String inputText) {
+    public Iterator<SearchHit<Note>> search(String inputText, int pageNumber, int pageSize, int fuzziness) {
         // With fuzzy ness 1
         StringQuery stringQuery = ElasticQuery.SearchQuery.getElasticQuery(QUERY_ON_SINGLE_FIELD_WITH_FUZZY_1, inputText);
         var stringResult = elasticsearchOperations.search(stringQuery, Note.class);
         LOGGER.info("Input text: {}, Search query: {}, Search result: {}", inputText, stringQuery, stringResult);
 
         // WIth fuzzy ness 2
-        NativeQuery nativeQuery = ElasticQuery.NativeQuery.queryOnSingleFieldWithFuzzy2(inputText);
+        NativeQuery nativeQuery = ElasticQuery.Native.searchQuery(inputText, pageNumber, pageSize, fuzziness, List.of(CONTENT_FIELD, KEYWORDS, TAG));
         var nativeResult = elasticsearchOperations.search(nativeQuery, Note.class);
         LOGGER.info("Input text: {}, Search query: {}, Search result: {}", inputText, nativeQuery, nativeResult);
 

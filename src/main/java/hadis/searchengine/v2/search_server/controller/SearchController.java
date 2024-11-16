@@ -2,6 +2,7 @@ package hadis.searchengine.v2.search_server.controller;
 
 import hadis.searchengine.v2.search_server.entity.Note;
 import hadis.searchengine.v2.search_server.service.SearchService;
+import lombok.NonNull;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,11 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @GetMapping("/{query}")
-    public ResponseEntity<Iterator<SearchHit<Note>>> search(@PathVariable String query) {
-        return ResponseEntity.ok(searchService.search(query));
+    @GetMapping("/{pageNumber}/{pageSize}/{fuzzy}/{query}")
+    public ResponseEntity<Iterator<SearchHit<Note>>> search(@NonNull @PathVariable String query,
+                                                            @NonNull @PathVariable Integer pageNumber,
+                                                            @NonNull @PathVariable Integer pageSize,
+                                                            @NonNull @PathVariable Integer fuzzy) {
+        return ResponseEntity.ok(searchService.search(query, pageNumber - 1, pageSize, fuzzy));
     }
 }
