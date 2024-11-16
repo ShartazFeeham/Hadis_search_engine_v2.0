@@ -31,6 +31,15 @@ public class NoteCrudController {
         return new ResponseEntity<>(note, HttpStatus.OK);
     }
 
+    @GetMapping("/tag/{tagId}")
+    public ResponseEntity<Note> getNoteById(@PathVariable String tagId) {
+        Note note = noteService.getByTag(tagId);
+        if (note == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(note, HttpStatus.OK);
+    }
+
     @PutMapping("/{noteId}")
     public ResponseEntity<Note> updateNote(@PathVariable Long noteId, @RequestBody Note note) {
         Note updatedNote = noteService.updateNote(noteId, note);
