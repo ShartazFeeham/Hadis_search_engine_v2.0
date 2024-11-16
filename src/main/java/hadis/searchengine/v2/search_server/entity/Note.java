@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class Note {
     @NonNull private Integer wordCount;
     @NonNull private Integer uniqueWordCount;
     @NonNull private String textOriginal;
-    @NonNull private List<String> sourceBreadCrumb;
+    @NonNull private Map<String, Object> keywords;
 
     @Override
     public boolean equals(Object o) {
