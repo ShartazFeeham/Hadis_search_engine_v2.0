@@ -2,7 +2,7 @@ package hadis.searchengine.v2.search_server.repository;
 
 import org.springframework.data.elasticsearch.core.query.StringQuery;
 
-import static hadis.searchengine.v2.Constants.CONTENT_FIELD;
+import static hadis.searchengine.v2.utils.Constants.CONTENT_FIELD;
 
 public class ElasticQuery {
 

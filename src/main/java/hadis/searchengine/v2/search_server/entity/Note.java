@@ -1,9 +1,6 @@
 package hadis.searchengine.v2.search_server.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -12,23 +9,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static hadis.searchengine.v2.Constants.INDEX_NAME;
+import static hadis.searchengine.v2.utils.Constants.INDEX_NAME;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = INDEX_NAME)
+@Builder
 public class Note {
     @Id
     @NonNull private Long noteId;
-    @NonNull private List<String> sourceBreadCrumb;
-    @NonNull private Integer length;
+    @NonNull private String tag;
     @NonNull private Integer characterCount;
     @NonNull private Integer uniqueCharacterCount;
     @NonNull private Integer wordCount;
     @NonNull private Integer uniqueWordCount;
-    @NonNull private Integer blocks;
     @NonNull private String textOriginal;
+    @NonNull private List<String> sourceBreadCrumb;
 
     @Override
     public boolean equals(Object o) {
