@@ -20,8 +20,10 @@ public class StaticRepo {
     public Map<String, String> getHadisMapJsonAsObject()  {
         try {
             String asText = FFiles.read(getStaticHadisMapAbsolutePath());
-            asText = asText.replace("\n", " ");
-            return objectMapper.readValue(asText, HashMap.class);
+            asText = asText.replace("\n", " ").replace("\t", " ").replace("\r", " ");
+            HashMap result = objectMapper.readValue(asText, HashMap.class);
+            LOGGER.info("Hadis map json read successfully");
+            return result;
         } catch (Exception e) {
             LOGGER.error("Error reading static file: hadismap.json");
             return new HashMap<>();

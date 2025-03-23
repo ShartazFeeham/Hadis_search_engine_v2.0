@@ -1,7 +1,7 @@
 package hadis.searchengine.v2.static_data_server.controller;
 
 import hadis.searchengine.v2.static_data_server.server.HadisProcessor;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +17,7 @@ public class HadisController {
         this.hadisProcessor = hadisProcessor;
     }
 
-    @PostMapping("/load-hadis")
+    @GetMapping("/load-hadis")
     public Map<?, ?> loadHadis() {
         return hadisProcessor.process();
     }
