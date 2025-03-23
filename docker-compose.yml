@@ -1,14 +1,6 @@
 version: '3.8'
 
 services:
-  cloudflared:
-    container_name: cloudflared
-    restart: unless-stopped
-    network_mode: bridge
-    environment:
-      - TZ=Asia/Shanghai
-    command: tunnel --no-autoupdate --protocol http2 run --token eyJhIjoiMTMxMzkxODExNjNkZGNmYWQ2MTYyNzNmNDBhMzk5NzMiLCJ0IjoiMzFiNzU2YzgtNjkyNi00ZDVmLTkyOGMtNGNhYzQxMjZiY2M1IiwicyI6IlpEazRPR0prWWprdE1tTXdPQzAwTURSa0xXSmpNak10Wm1ReE1EUTNaRFkzTTJRdyJ9
-    image: 'cloudflare/cloudflared:latest'
 
   elasticsearch_hse2:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.3.3
